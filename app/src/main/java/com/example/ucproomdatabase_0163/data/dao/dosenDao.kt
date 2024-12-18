@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface dosenDao {
     @Insert
-    suspend fun insertDosen(dosen: Dosen) /**memasukkan table mahasiswa**/
+    suspend fun insertDosen(dosen: Dosen) /**memasukkan table Dosen pada package entity**/
 
     //-----
     //getAllMahasiswa
