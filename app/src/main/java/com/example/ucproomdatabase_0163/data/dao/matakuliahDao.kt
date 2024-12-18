@@ -28,3 +28,5 @@ interface matakuliahDao {
     //update
     suspend fun updateMatakuliah(matakuliahDao: matakuliahDao)
 }
+
+//Semua eksekusi diatas akan dikirim ke package repository
