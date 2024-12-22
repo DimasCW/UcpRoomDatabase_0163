@@ -39,8 +39,9 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.ucproomdatabase_0163.data.entity.Matakuliah
 import com.example.ucproomdatabase_0163.ui.costumwidget.CstTopAppBar
-import com.example.ucproomdatabase_0163.ui.viewModel.dosen.HomeUiState
+import com.example.ucproomdatabase_0163.ui.viewModel.dosen.HomeUiStateDosen
 import com.example.ucproomdatabase_0163.ui.viewModel.matakuliah.HomeMkViewModel
+import com.example.ucproomdatabase_0163.ui.viewModel.matakuliah.HomeUiStateMk
 import com.example.ucproomdatabase_0163.ui.viewModel.matakuliah.PenyediaViewModel
 import kotlinx.coroutines.launch
 
@@ -48,7 +49,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun HomeMkView(
     viewModel: HomeMkViewModel = viewModel(factory = PenyediaViewModel.Factory),
-    onAddMhs: () -> Unit = { },
+    onAddMk: () -> Unit = { },
     onDetailClick: (String) -> Unit = { },
     modifier: Modifier = Modifier
 ) {
@@ -61,7 +62,7 @@ fun HomeMkView(
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = onAddMhs,
+                onClick = onAddMk,
                 shape = MaterialTheme.shapes.medium,
                 modifier = Modifier.padding(16.dp)
             ) {
@@ -87,7 +88,7 @@ fun HomeMkView(
 
 @Composable
 fun BodyHomeMkView(
-    homeUiState: HomeUiState,
+    homeUiState: HomeUiStateMk,
     onClick: (String) -> Unit = { },
     modifier: Modifier = Modifier
 ){
@@ -129,9 +130,9 @@ fun BodyHomeMkView(
             }
         }
         else -> {
-            //Menampilkan daftar mahasiswa
+            //Menampilkan daftar mk
             ListMatakuliah(
-                listMhs = homeUiState.listMk,
+                listMk = homeUiState.listMk,
                 onClick = {
                     onClick(it)
                     println(
@@ -147,7 +148,7 @@ fun BodyHomeMkView(
 
 @Composable
 fun ListMatakuliah(
-    listMhs : List<Matakuliah>,
+    listMk : List<Matakuliah>,
     modifier: Modifier = Modifier,
     onClick: (String) -> Unit = {}
 ){
@@ -168,8 +169,8 @@ fun ListMatakuliah(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CardMhs(
-    mhs: Mahasiswa,
+fun CardMk(
+    mk: Matakuliah,
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {}
 ){
@@ -189,7 +190,7 @@ fun CardMhs(
                 Icon(imageVector = Icons.Filled.Person, contentDescription = "")
                 Spacer(modifier = Modifier.padding(4.dp))
                 Text(
-                    text = mhs.nama,
+                    text = mk.nama,
                     fontWeight = FontWeight.Bold,
                     fontSize = 20.sp
                 )
@@ -201,7 +202,7 @@ fun CardMhs(
                 Icon(imageVector = Icons.Filled.DateRange, contentDescription = "")
                 Spacer(modifier = Modifier.padding(4.dp))
                 Text(
-                    text = mhs.nim,
+                    text = mk.kode,
                     fontWeight = FontWeight.Bold,
                     fontSize = 16.sp
                 )
@@ -213,7 +214,7 @@ fun CardMhs(
                 Icon(imageVector = Icons.Filled.Home, contentDescription = "")
                 Spacer(modifier = Modifier.padding(4.dp))
                 Text(
-                    text = mhs.kelas,
+                    text = mk.nama,
                     fontWeight = FontWeight.Bold
                 )
             }

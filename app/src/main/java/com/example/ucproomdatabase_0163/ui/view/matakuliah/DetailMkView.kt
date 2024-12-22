@@ -38,6 +38,7 @@ import com.example.ucproomdatabase_0163.ui.costumwidget.CstTopAppBar
 import com.example.ucproomdatabase_0163.ui.viewModel.matakuliah.DetailMkViewModel
 import com.example.ucproomdatabase_0163.ui.viewModel.matakuliah.DetailUiState
 import com.example.ucproomdatabase_0163.ui.viewModel.matakuliah.PenyediaViewModel
+import com.example.ucproomdatabase_0163.ui.viewModel.matakuliah.toMatakuliahEntity
 
 
 @Composable
@@ -109,7 +110,7 @@ fun BodyDetailMk(
                     .padding(16.dp)
             ){
                 ItemDetailMk(
-                    mataKuliah = detailUiState.detailUiEvent.toMahasiswaEntity(),
+                    mataKuliah = detailUiState.detailUiEvent.toMatakuliahEntity(),
                     modifier = Modifier
                 )
                 Spacer(modifier = Modifier.padding(8.dp))

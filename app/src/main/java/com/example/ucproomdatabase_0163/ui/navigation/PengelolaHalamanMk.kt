@@ -2,15 +2,13 @@ package com.example.ucproomdatabase_0163.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringArrayResource
-import androidx.navigation.NavController
-import androidx.navigation.NavHost
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.pertemuan9_roomdatabase.ui.view.mahasiswa.UpdateMkView
 import com.example.ucproomdatabase_0163.ui.view.matakuliah.DestinasiInsert
 import com.example.ucproomdatabase_0163.ui.view.matakuliah.DetailMkView
 import com.example.ucproomdatabase_0163.ui.view.matakuliah.HomeMkView
@@ -18,19 +16,19 @@ import com.example.ucproomdatabase_0163.ui.view.matakuliah.InsertMkView
 
 
 @Composable
-fun PengelolaHalaman(
+fun PengelolaHalamanMk(
     navController: NavHostController = rememberNavController(),
     modifier: Modifier = Modifier
 ){
     NavHost(
-        navController = navController, startDestination = DestinasiHome.route
+        navController = navController, startDestination = DestinasiHomeMk.route
     ) {
         composable(
-            route = DestinasiHome.route
+            route = DestinasiHomeMk.route
         ){
             HomeMkView(
                 onDetailClick = { kode ->
-                    navController.navigate("${DestinasiDetail.route}/$kode")
+                    navController.navigate("${DestinasiDetailMk.route}/$kode")
                     println(
                         "PengelolaHalaman: kode = $kode"
                     )
@@ -57,21 +55,21 @@ fun PengelolaHalaman(
         }
 
         composable(
-            DestinasiDetail.routesWithArg,
+            DestinasiDetailMk.routesWithArg,
             arguments = listOf(
-                navArgument(DestinasiDetail.KODE){
+                navArgument(DestinasiDetailMk.KODE){
                     type = NavType.StringType
                 }
             )
         ){
-            val kode = it.arguments?.getString(DestinasiDetail.KODE)
+            val kode = it.arguments?.getString(DestinasiDetailMk.KODE)
             kode?.let { kode ->
                 DetailMkView(
                     onBack = {
                         navController.popBackStack()
                     },
                     onEditClick = {
-                        navController.navigate("${DestinasiUpdate.route}/$it")
+                        navController.navigate("${DestinasiUpdateMk.route}/$it")
                     },
                     modifier = modifier,
                     onDeleteClick = {
@@ -82,7 +80,7 @@ fun PengelolaHalaman(
         }
 
         composable(
-            DestinasiUpdate.routesWithArg,
+            DestinasiUpdateMk.routesWithArg,
             arguments = listOf(
                 navArgument(DestinasiUpdate.KODE){
                     type = NavType.StringType

@@ -16,21 +16,21 @@ import kotlinx.coroutines.flow.stateIn
 class HomeDosenViewModel(
     private val repositoryDosen: LocalRepositoryDosen
 ) : ViewModel(){
-    val homeUiState : StateFlow<HomeUiState> = repositoryDosen.getAllDosen()
+    val homeUiState : StateFlow<HomeUiStateDosen> = repositoryDosen.getAllDosen()
         .filterNotNull()
         .map {
-            HomeUiState(
+            HomeUiStateDosen(
                 listDosen = it.toList(),
                 isLoading = false
             )
         }
         .onStart {
-            emit(HomeUiState(isLoading = true))
+            emit(HomeUiStateDosen(isLoading = true))
             delay(900)
         }
         .catch {
             emit(
-                HomeUiState(
+                HomeUiStateDosen(
                     isLoading = false,
                     isError = true,
                     errorMessage = it.message ?: "Terjadi kesalahan"
@@ -40,13 +40,13 @@ class HomeDosenViewModel(
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
-            initialValue = HomeUiState(
+            initialValue = HomeUiStateDosen(
                 isLoading = true,
             )
         )
 }
 
-data class HomeUiState(
+data class HomeUiStateDosen(
     val listDosen: List<Dosen> = emptyList(),
     val isLoading: Boolean = false,
     val isError: Boolean = false,

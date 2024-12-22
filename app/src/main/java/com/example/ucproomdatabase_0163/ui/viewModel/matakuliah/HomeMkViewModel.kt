@@ -21,21 +21,21 @@ import kotlinx.coroutines.launch
 class HomeMkViewModel(
     private val repositoryMk: RepositoryMk
 ) : ViewModel(){
-    val homeUiState : StateFlow<HomeUiState> = repositoryMk.getAllMatakuliah()
+    val homeUiState : StateFlow<HomeUiStateMk> = repositoryMk.getAllMatakuliah()
         .filterNotNull()
         .map {
-            HomeUiState(
+            HomeUiStateMk(
                 listMk = it.toList(),
                 isLoading = false
             )
         }
         .onStart {
-            emit(HomeUiState(isLoading = true))
+            emit(HomeUiStateMk(isLoading = true))
             delay(900)
         }
         .catch {
             emit(
-                HomeUiState(
+                HomeUiStateMk(
                     isLoading = false,
                     isError = true,
                     errorMessage = it.message ?: "Terjadi kesalahan"
@@ -45,13 +45,13 @@ class HomeMkViewModel(
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
-            initialValue = HomeUiState(
+            initialValue = HomeUiStateMk(
                 isLoading = true,
             )
         )
 }
 
-data class HomeUiState(
+data class HomeUiStateMk(
     val listMk: List<Matakuliah> = emptyList(),
     val isLoading: Boolean = false,
     val isError: Boolean = false,
