@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.ucproomdatabase_0163.data.entity.Dosen
 import com.example.ucproomdatabase_0163.repository.LocalRepositoryDosen
 import com.example.ucproomdatabase_0163.repository.RepositoryDosen
+import com.example.ucproomdatabase_0163.ui.navigation.DestinasiDetail
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
