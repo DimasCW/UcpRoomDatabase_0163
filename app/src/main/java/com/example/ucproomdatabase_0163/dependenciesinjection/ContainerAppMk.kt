@@ -2,16 +2,14 @@ package com.example.ucproomdatabase_0163.dependenciesinjection
 
 import android.content.Context
 import com.example.ucproomdatabase_0163.data.database.MkDatabase
-import com.example.ucproomdatabase_0163.repository.LocalRepositoryDosen
 import com.example.ucproomdatabase_0163.repository.LocalRepositoryMk
-import com.example.ucproomdatabase_0163.repository.RepositoryDosen
 import com.example.ucproomdatabase_0163.repository.RepositoryMk
 
-interface InterfaceContainerApp{
+interface InterfaceContainerAppMk{
     val repositoryMk: RepositoryMk
 }
 
-class ContainerApp(private val context: Context): InterfaceContainerApp{
+class ContainerAppMk(private val context: Context): InterfaceContainerAppMk{
 
     override val repositoryMk: RepositoryMk by lazy {
         LocalRepositoryMk(MkDatabase.getDatabase(context).matakuliahDao())
