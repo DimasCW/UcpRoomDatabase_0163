@@ -16,7 +16,7 @@ import com.example.ucproomdatabase_0163.ui.view.matakuliah.InsertMkView
 
 
 @Composable
-fun PengelolaHalamanMk(
+fun PengelolaHalaman(
     navController: NavHostController = rememberNavController(),
     modifier: Modifier = Modifier
 ){

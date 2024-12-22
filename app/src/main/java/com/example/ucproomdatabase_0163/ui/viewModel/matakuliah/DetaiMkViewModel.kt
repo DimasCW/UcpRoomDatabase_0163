@@ -4,7 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.ucproomdatabase_0163.data.entity.Matakuliah
-import com.example.ucproomdatabase_0163.repository.Repository
+import com.example.ucproomdatabase_0163.repository.RepositoryMk
 import com.example.ucproomdatabase_0163.ui.navigation.DestinasiDetail
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharingStarted
@@ -18,11 +18,11 @@ import kotlinx.coroutines.launch
 
 class DetailMkViewModel(
     savedStateHandle: SavedStateHandle,
-    private val repository: Repository,
+    private val repositoryMk: RepositoryMk,
 ): ViewModel(){
     private val _kode: String = checkNotNull(savedStateHandle[DestinasiDetail.KODE])
 
-    val detailUiState: StateFlow<DetailUiState> = repository.getMatakuliah(_kode)
+    val detailUiState: StateFlow<DetailUiState> = repositoryMk.getMatakuliah(_kode)
         .filterNotNull()
         .map {
             DetailUiState(
@@ -54,7 +54,7 @@ class DetailMkViewModel(
     fun deleteMk(){
         detailUiState.value.detailUiEvent.toMatakuliahEntity().let{
             viewModelScope.launch {
-                repository.deleteMatakuliah(it)
+                repositoryMk.deleteMatakuliah(it)
             }
         }
     }

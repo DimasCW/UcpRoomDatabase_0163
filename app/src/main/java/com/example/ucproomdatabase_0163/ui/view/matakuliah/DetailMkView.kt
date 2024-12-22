@@ -110,7 +110,7 @@ fun BodyDetailMk(
                     .padding(16.dp)
             ){
                 ItemDetailMk(
-                    mataKuliah = detailUiState.detailUiEvent.toMatakuliahEntity(),
+                    matakuliah = detailUiState.detailUiEvent.toMatakuliahEntity(),
                     modifier = Modifier
                 )
                 Spacer(modifier = Modifier.padding(8.dp))
@@ -154,7 +154,7 @@ fun BodyDetailMk(
 @Composable
 fun ItemDetailMk(
     modifier: Modifier = Modifier,
-    mataKuliah: Matakuliah
+    matakuliah: Matakuliah
 ){
     Card (
         modifier = modifier.fillMaxWidth(),
@@ -166,17 +166,17 @@ fun ItemDetailMk(
         Column(
             modifier = Modifier.padding(16.dp)
         ) {
-            ComponentDetailMk(judul = "kode", isinya = mataKuliah.kode)
+            ComponentDetailMk(judul = "kode", isinya = matakuliah.kode)
             Spacer(modifier = Modifier.padding(4.dp))
-            ComponentDetailMk(judul = "Nama", isinya = mataKuliah.nama)
+            ComponentDetailMk(judul = "Nama", isinya = matakuliah.nama)
             Spacer(modifier = Modifier.padding(4.dp))
-            ComponentDetailMk(judul = "Alamat", isinya = mataKuliah.sks)
+            ComponentDetailMk(judul = "sks", isinya = matakuliah.sks)
             Spacer(modifier = Modifier.padding(4.dp))
-            ComponentDetailMk(judul = "jenis Kelamin", isinya = mataKuliah.semester)
+            ComponentDetailMk(judul = "semester", isinya = matakuliah.semester)
             Spacer(modifier = Modifier.padding(4.dp))
-            ComponentDetailMk(judul = "Kelas", isinya = mataKuliah.jenis)
+            ComponentDetailMk(judul = "jenis", isinya = matakuliah.jenis)
             Spacer(modifier = Modifier.padding(4.dp))
-            ComponentDetailMk(judul = "Angkatan", isinya = mataKuliah.dosenPengampu)
+            ComponentDetailMk(judul = "dosenPengampu", isinya = matakuliah.dosenPengampu)
             Spacer(modifier = Modifier.padding(4.dp))
         }
     }

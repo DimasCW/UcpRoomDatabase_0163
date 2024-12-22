@@ -1,7 +1,7 @@
 package com.example.ucproomdatabase_0163.ui.viewModel.matakuliah
 
 import com.example.ucproomdatabase_0163.data.entity.Matakuliah
-import com.example.ucproomdatabase_0163.repository.Repository
+import com.example.ucproomdatabase_0163.repository.RepositoryMk
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewModelScope
@@ -19,9 +19,9 @@ import kotlinx.coroutines.launch
 
 
 class HomeMkViewModel(
-    private val repository: Repository
+    private val repositoryMk: RepositoryMk
 ) : ViewModel(){
-    val homeUiState : StateFlow<HomeUiState> = repository.getAllMatakuliah()
+    val homeUiState : StateFlow<HomeUiState> = repositoryMk.getAllMatakuliah()
         .filterNotNull()
         .map {
             HomeUiState(

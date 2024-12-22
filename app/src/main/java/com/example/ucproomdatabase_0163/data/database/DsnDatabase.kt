@@ -4,25 +4,25 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.ucproomdatabase_0163.data.dao.MatakuliahDao
-import com.example.ucproomdatabase_0163.data.entity.Matakuliah
+import com.example.ucproomdatabase_0163.data.dao.DosenDao
+import com.example.ucproomdatabase_0163.data.entity.Dosen
 
-@Database(entities = [Matakuliah::class], version = 1, exportSchema = false)
-abstract class MkDatabase : RoomDatabase() {
+@Database(entities = [Dosen::class], version = 1, exportSchema = false)
+abstract class DsnDatabase : RoomDatabase() {
 
     //mendefinisikan fungsi untuk mengakses data mahasiswa
-    abstract fun matakuliahDao() : MatakuliahDao //ini berasal dari file matakuliahDao
+    abstract fun dosenDao() : DosenDao //ini berasal dari file dosenDao
 
     companion object{
         @Volatile //memastikan bahwa nilai variable
-        private var Instance : MkDatabase ? = null
+        private var Instance : DsnDatabase ? = null
 
-        fun getDatabase(context: Context) : MkDatabase{
+        fun getDatabase(context: Context) : DsnDatabase{
             return (Instance ?: synchronized(this){
                 Room.databaseBuilder(
                     context.applicationContext,
-                    MkDatabase::class.java,
-                    "MkDatabase"
+                    DsnDatabase::class.java,
+                    "DsnDatabase"
                 )
                     .build().also { Instance = it }
             })

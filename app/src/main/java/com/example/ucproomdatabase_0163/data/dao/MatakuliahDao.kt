@@ -11,23 +11,23 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface MatakuliahDao {
     @Insert
-    suspend fun insertMatakuliah(mataKuliah: Matakuliah)
+    suspend fun insertMatakuliah(matakuliah: Matakuliah)
 
     //getAll matakuliah
     @Query("SELECT * FROM matakuliah ORDER BY nama ASC")
-    fun getAllMatakuliah() : Flow<List<Matakuliah>>
+    fun getAllMatakuliah(): Flow<List<Matakuliah>>
 
     //get matakuliah
     @Query("SELECT * FROM matakuliah WHERE kode = :kode")
-    fun getMatakuliah(kode: String) : Flow<Matakuliah>
+    fun getMatakuliah(kode: String): Flow<Matakuliah>
 
     //delete
     @Delete
-    suspend fun deleteMatakuliah(matakuliahDao: Matakuliah)
+    suspend fun deleteMatakuliah(matakuliah: Matakuliah)
 
     //update
     @Update
-    suspend fun updateMatakuliah(matakuliahDao: Matakuliah)
+    suspend fun updateMatakuliah(matakuliah: Matakuliah)
 }
 
 //Semua eksekusi diatas akan dikirim ke package repository

@@ -5,11 +5,11 @@ import com.example.ucproomdatabase_0163.data.entity.Matakuliah
 import kotlinx.coroutines.flow.Flow
 
 
-class LocalRepository(
+class LocalRepositoryMk(
     private val matakuliahDao: MatakuliahDao
-) : Repository {
-    override suspend fun insertMatakuliah(mataKuliah: Matakuliah) {
-        matakuliahDao.insertMatakuliah(mataKuliah)
+) : RepositoryMk {
+    override suspend fun insertMatakuliah(matakuliah: Matakuliah) {
+        matakuliahDao.insertMatakuliah(matakuliah)
 
     }
 
@@ -21,11 +21,11 @@ class LocalRepository(
         return matakuliahDao.getMatakuliah(kode)
     }
 
-    override suspend fun deleteMatakuliah(mataKuliah: Matakuliah) {
-        matakuliahDao.deleteMatakuliah(mataKuliah)
+    override suspend fun deleteMatakuliah(matakuliah: Matakuliah) {
+        matakuliahDao.deleteMatakuliah(matakuliah)
     }
 
-    override suspend fun updateMatakuliah(mataKuliah: Matakuliah) {
-        matakuliahDao.updateMatakuliah(mataKuliah)
+    override suspend fun updateMatakuliah(matakuliah: Matakuliah) {
+        matakuliahDao.updateMatakuliah(matakuliah)
     }
 }

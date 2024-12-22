@@ -7,9 +7,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
@@ -24,7 +22,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.ucproomdatabase_0163.ui.costumwidget.CstTopAppBar
@@ -137,7 +134,7 @@ fun FormMatakuliah(
     ){
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
-            value = matakuliahEvent.nama ?:"",
+            value = matakuliahEvent.nama,
             onValueChange = {
                 onValueChange(matakuliahEvent.copy(nama = it))
             },
@@ -152,7 +149,7 @@ fun FormMatakuliah(
 
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
-            value = matakuliahEvent.kode ?:"",
+            value = matakuliahEvent.kode,
             onValueChange = {
                 onValueChange(matakuliahEvent.copy(kode = it))
             },
@@ -188,7 +185,7 @@ fun FormMatakuliah(
         }
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
-            value = matakuliahEvent.sks?:"",
+            value = matakuliahEvent.sks,
             onValueChange = {
                 onValueChange(matakuliahEvent.copy(sks = it))
             },
@@ -225,7 +222,7 @@ fun FormMatakuliah(
         )
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
-            value = matakuliahEvent.dosenPengampu?:"",
+            value = matakuliahEvent.dosenPengampu,
             onValueChange = {
                 onValueChange(matakuliahEvent.copy(dosenPengampu = it))
             },

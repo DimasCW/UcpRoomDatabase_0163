@@ -72,7 +72,7 @@ fun HomeMkView(
             }
         }
     ){
-            innerPadding ->
+        innerPadding ->
         val homeUiState by viewModel.homeUiState.collectAsState()
 
         BodyHomeMkView(

@@ -58,7 +58,7 @@ fun UpdateMkView(
         snackbarHost = { SnackbarHost(hostState =  snackbarHostState) }, //tempatkan sanckbar di scaffoold
         topBar = {
             CstTopAppBar(
-                judul = "Edit Mahasiswa",
+                judul = "Edit Matakuliah",
                 showBackButton = true,
                 onBack = onBack,
                 modifier = modifier

@@ -11,7 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.ucproomdatabase_0163.ui.navigation.PengelolaHalamanMk
+import com.example.ucproomdatabase_0163.ui.navigation.PengelolaHalaman
 import com.example.ucproomdatabase_0163.ui.theme.UcpRoomDatabase_0163Theme
 
 class MainActivity : ComponentActivity() {
@@ -21,7 +21,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             UcpRoomDatabase_0163Theme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    PengelolaHalamanMk(
+                    PengelolaHalaman(
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
