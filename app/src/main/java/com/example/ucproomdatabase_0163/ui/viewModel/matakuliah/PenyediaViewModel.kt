@@ -10,26 +10,26 @@ object PenyediaViewModel {
     val Factory = viewModelFactory {
         initializer {
             MatakuliahViewModel(
-                MkApp().containerApp.repositoryMk
+                MkApp().containerAppMk.repositoryMk
             )
         }
         initializer{
             HomeMkViewModel(
-                MkApp() .containerApp.repositoryMk
+                MkApp() .containerAppMk.repositoryMk
             )
         }
 
         initializer {
             DetailMkViewModel(
                 createSavedStateHandle(),
-                MkApp() .containerApp.repositoryMk
+                MkApp() .containerAppMk.repositoryMk
             )
         }
 
         initializer {
             UpdateMkViewModel(
                 createSavedStateHandle(),
-                MkApp() .containerApp.repositoryMk,
+                MkApp() .containerAppMk.repositoryMk,
             )
         }
     }

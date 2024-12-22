@@ -4,9 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.ucproomdatabase_0163.data.dao.dosenDao
 import com.example.ucproomdatabase_0163.data.dao.MatakuliahDao
-import com.example.ucproomdatabase_0163.data.entity.Dosen
 import com.example.ucproomdatabase_0163.data.entity.Matakuliah
 
 @Database(entities = [Matakuliah::class], version = 1, exportSchema = false)
