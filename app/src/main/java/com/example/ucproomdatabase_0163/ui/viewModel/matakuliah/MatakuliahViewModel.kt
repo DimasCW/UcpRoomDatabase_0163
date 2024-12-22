@@ -6,7 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.ucproomdatabase_0163.data.entity.Matakuliah
-import com.example.ucproomdatabase_0163.repository.RepositoryMk
+import com.example.ucproomdatabase_0163.repository.Repository
 import kotlinx.coroutines.launch
 
 // Event adalah sebuah aksi (sesuatu yang dilakukan)
@@ -52,7 +52,7 @@ fun MatakuliahEvent.toMatakuliahEntity(): Matakuliah = Matakuliah(
     dosenPengampu = dosenPengampu
 )
 
-class MatakuliahViewModel (private val  repositoryMk: RepositoryMk): ViewModel(){
+class MatakuliahViewModel (private val  repository: Repository): ViewModel(){
     var uiState by mutableStateOf(MkUiState())
 
     // Memperbarui state berdasarkan input pengguna
@@ -84,7 +84,7 @@ class MatakuliahViewModel (private val  repositoryMk: RepositoryMk): ViewModel()
         if (validateFields()) {
             viewModelScope.launch {
                 try {
-                    repositoryMk.insertMatakuliah(currentEvent.toMatakuliahEntity())
+                    repository.insertMatakuliah(currentEvent.toMatakuliahEntity())
                     uiState = uiState.copy(
                         snackBarMessage = "Data berhasil disimpan",
                         matakuliahEvent = MatakuliahEvent(), // Reset input form

@@ -5,9 +5,9 @@ import com.example.ucproomdatabase_0163.data.entity.Matakuliah
 import kotlinx.coroutines.flow.Flow
 
 
-class LocalRepositoryMk(
+class LocalRepository(
     private val matakuliahDao: MatakuliahDao
-) : RepositoryMk {
+) : Repository {
     override suspend fun insertMatakuliah(mataKuliah: Matakuliah) {
         matakuliahDao.insertMatakuliah(mataKuliah)
 

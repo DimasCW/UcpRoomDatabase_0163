@@ -1,8 +1,8 @@
 package com.example.ucproomdatabase_0163.ui.viewModel.matakuliah
 
 import com.example.ucproomdatabase_0163.data.entity.Matakuliah
-import com.example.ucproomdatabase_0163.repository.RepositoryMk
-import com.example.ucproomdatabase_0163.ui.navigation.DestinasiUpdateMk
+import com.example.ucproomdatabase_0163.repository.Repository
+import com.example.ucproomdatabase_0163.ui.navigation.DestinasiUpdate
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -15,12 +15,12 @@ import kotlinx.coroutines.launch
 
 class UpdateMkViewModel(
     savedStateHandle: SavedStateHandle,
-    private val repositoryMk: RepositoryMk
+    private val repositoryMk: Repository
 ): ViewModel() {
     var updateUIState by mutableStateOf(MkUiState())
         private set
 
-    private val _kode: String = checkNotNull(savedStateHandle[DestinasiUpdateMk.KODE])
+    private val _kode: String = checkNotNull(savedStateHandle[DestinasiUpdate.KODE])
 
     init {
         viewModelScope.launch {

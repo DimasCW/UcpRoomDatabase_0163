@@ -1,21 +1,21 @@
 package com.example.ucproomdatabase_0163.ui.navigation
 
-interface AlamatNavigasiMk {
+interface AlamatNavigasi {
     val route: String
 }
 
 //------
-object DestinasiHomeMk : AlamatNavigasiMk{
+object DestinasiHome : AlamatNavigasi{
     override val route = "home"
 }
 
-object DestinasiDetailMk : AlamatNavigasiMk{
+object DestinasiDetail : AlamatNavigasi{
     override val route = "detail"
     const val KODE = "kode"
     val routesWithArg = "$route/{$KODE}"
 }
 
-object DestinasiUpdateMk : AlamatNavigasiMk {
+object DestinasiUpdate : AlamatNavigasi {
     override val route = "update"
     const val KODE = "kode"
     val routesWithArg = "$route/{$KODE}"

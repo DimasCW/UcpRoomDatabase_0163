@@ -3,7 +3,7 @@ package com.example.ucproomdatabase_0163.repository
 import com.example.ucproomdatabase_0163.data.entity.Matakuliah
 import kotlinx.coroutines.flow.Flow
 
-interface RepositoryMk {
+interface Repository {
     suspend fun insertMatakuliah(mataKuliah: Matakuliah)
 
     fun getAllMatakuliah(): Flow<List<Matakuliah>>

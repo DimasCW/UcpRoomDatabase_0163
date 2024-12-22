@@ -39,9 +39,8 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.ucproomdatabase_0163.data.entity.Matakuliah
 import com.example.ucproomdatabase_0163.ui.costumwidget.CstTopAppBar
-import com.example.ucproomdatabase_0163.ui.viewModel.dosen.HomeUiStateDosen
 import com.example.ucproomdatabase_0163.ui.viewModel.matakuliah.HomeMkViewModel
-import com.example.ucproomdatabase_0163.ui.viewModel.matakuliah.HomeUiStateMk
+import com.example.ucproomdatabase_0163.ui.viewModel.matakuliah.HomeUiState
 import com.example.ucproomdatabase_0163.ui.viewModel.matakuliah.PenyediaViewModel
 import kotlinx.coroutines.launch
 
@@ -88,7 +87,7 @@ fun HomeMkView(
 
 @Composable
 fun BodyHomeMkView(
-    homeUiState: HomeUiStateMk,
+    homeUiState: HomeUiState,
     onClick: (String) -> Unit = { },
     modifier: Modifier = Modifier
 ){

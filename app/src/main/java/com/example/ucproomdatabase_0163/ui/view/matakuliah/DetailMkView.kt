@@ -36,7 +36,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.ucproomdatabase_0163.data.entity.Matakuliah
 import com.example.ucproomdatabase_0163.ui.costumwidget.CstTopAppBar
 import com.example.ucproomdatabase_0163.ui.viewModel.matakuliah.DetailMkViewModel
-import com.example.ucproomdatabase_0163.ui.viewModel.matakuliah.DetailUiStateMk
+import com.example.ucproomdatabase_0163.ui.viewModel.matakuliah.DetailUiState
 import com.example.ucproomdatabase_0163.ui.viewModel.matakuliah.PenyediaViewModel
 import com.example.ucproomdatabase_0163.ui.viewModel.matakuliah.toMatakuliahEntity
 
@@ -61,7 +61,7 @@ fun DetailMkView(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-                    onEditClick(viewModel.detailUiStateMk.value.detailUiEvent.kode)
+                    onEditClick(viewModel.detailUiState.value.detailUiEvent.kode)
                 },
                 shape = MaterialTheme.shapes.medium,
                 modifier = Modifier.padding(16.dp)
@@ -73,7 +73,7 @@ fun DetailMkView(
             }
         }
     ) { innerPadding ->
-        val detailUiState by viewModel.detailUiStateMk.collectAsState()
+        val detailUiState by viewModel.detailUiState.collectAsState()
 
         BodyDetailMk(
             modifier = Modifier.padding(innerPadding),
@@ -89,7 +89,7 @@ fun DetailMkView(
 @Composable
 fun BodyDetailMk(
     modifier: Modifier = Modifier,
-    detailUiState: DetailUiStateMk = DetailUiStateMk(),
+    detailUiState: DetailUiState = DetailUiState(),
     onDeleteClick: () -> Unit = {}
 ){
     var deleteConfirmationRequired by rememberSaveable { mutableStateOf(false) }

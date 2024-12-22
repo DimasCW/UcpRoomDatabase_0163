@@ -1,7 +1,7 @@
 package com.example.ucproomdatabase_0163.ui.viewModel.matakuliah
 
 import com.example.ucproomdatabase_0163.data.entity.Matakuliah
-import com.example.ucproomdatabase_0163.repository.RepositoryMk
+import com.example.ucproomdatabase_0163.repository.Repository
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewModelScope
@@ -19,23 +19,23 @@ import kotlinx.coroutines.launch
 
 
 class HomeMkViewModel(
-    private val repositoryMk: RepositoryMk
+    private val repository: Repository
 ) : ViewModel(){
-    val homeUiState : StateFlow<HomeUiStateMk> = repositoryMk.getAllMatakuliah()
+    val homeUiState : StateFlow<HomeUiState> = repository.getAllMatakuliah()
         .filterNotNull()
         .map {
-            HomeUiStateMk(
+            HomeUiState(
                 listMk = it.toList(),
                 isLoading = false
             )
         }
         .onStart {
-            emit(HomeUiStateMk(isLoading = true))
+            emit(HomeUiState(isLoading = true))
             delay(900)
         }
         .catch {
             emit(
-                HomeUiStateMk(
+                HomeUiState(
                     isLoading = false,
                     isError = true,
                     errorMessage = it.message ?: "Terjadi kesalahan"
@@ -45,13 +45,13 @@ class HomeMkViewModel(
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
-            initialValue = HomeUiStateMk(
+            initialValue = HomeUiState(
                 isLoading = true,
             )
         )
 }
 
-data class HomeUiStateMk(
+data class HomeUiState(
     val listMk: List<Matakuliah> = emptyList(),
     val isLoading: Boolean = false,
     val isError: Boolean = false,

@@ -4,8 +4,8 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.ucproomdatabase_0163.data.entity.Matakuliah
-import com.example.ucproomdatabase_0163.repository.RepositoryMk
-import com.example.ucproomdatabase_0163.ui.navigation.DestinasiDetailMk
+import com.example.ucproomdatabase_0163.repository.Repository
+import com.example.ucproomdatabase_0163.ui.navigation.DestinasiDetail
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -18,25 +18,25 @@ import kotlinx.coroutines.launch
 
 class DetailMkViewModel(
     savedStateHandle: SavedStateHandle,
-    private val repositoryMk: RepositoryMk,
+    private val repository: Repository,
 ): ViewModel(){
-    private val _kode: String = checkNotNull(savedStateHandle[DestinasiDetailMk.KODE])
+    private val _kode: String = checkNotNull(savedStateHandle[DestinasiDetail.KODE])
 
-    val detailUiStateMk: StateFlow<DetailUiStateMk> = repositoryMk.getMatakuliah(_kode)
+    val detailUiState: StateFlow<DetailUiState> = repository.getMatakuliah(_kode)
         .filterNotNull()
         .map {
-            DetailUiStateMk(
+            DetailUiState(
                 detailUiEvent = it.toDetailUiEvent(),
                 isLoading = false,
             )
         }
         .onStart {
-            emit(DetailUiStateMk(isLoading = true))
+            emit(DetailUiState(isLoading = true))
             delay(600)
         }
         .catch {
             emit(
-                DetailUiStateMk(
+                DetailUiState(
                     isLoading = false,
                     isError = true,
                     errorMessage = it.message ?: "Terjadi Kesalahan",
@@ -46,21 +46,21 @@ class DetailMkViewModel(
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(2000),
-            initialValue = DetailUiStateMk(
+            initialValue = DetailUiState(
                 isLoading = true
             ),
         )
 
     fun deleteMk(){
-        detailUiStateMk.value.detailUiEvent.toMatakuliahEntity().let{
+        detailUiState.value.detailUiEvent.toMatakuliahEntity().let{
             viewModelScope.launch {
-                repositoryMk.deleteMatakuliah(it)
+                repository.deleteMatakuliah(it)
             }
         }
     }
 }
 
-data class DetailUiStateMk(
+data class DetailUiState(
     val detailUiEvent: MatakuliahEvent = MatakuliahEvent(),
     val isLoading: Boolean = false,
     val isError: Boolean = false,
