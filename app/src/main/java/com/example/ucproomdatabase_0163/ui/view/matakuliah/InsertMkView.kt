@@ -28,7 +28,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.ucproomdatabase_0163.ui.costumwidget.CstTopAppBar
-import com.example.ucproomdatabase_0163.ui.navigation.AlamatNavigasi
+import com.example.ucproomdatabase_0163.ui.navigation.AlamatNavigasiMk
 import com.example.ucproomdatabase_0163.ui.viewModel.matakuliah.FormErrorState
 import com.example.ucproomdatabase_0163.ui.viewModel.matakuliah.MatakuliahEvent
 import com.example.ucproomdatabase_0163.ui.viewModel.matakuliah.MatakuliahViewModel
@@ -64,7 +64,7 @@ fun InsertBodyMk(
     }
 }
 
-object DestinasiInsert : AlamatNavigasi {
+object DestinasiInsertMk : AlamatNavigasiMk {
     override val route: String = "insert_mk"
 }
 

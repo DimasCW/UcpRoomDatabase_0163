@@ -82,7 +82,7 @@ fun PengelolaHalamanMk(
         composable(
             DestinasiUpdateMk.routesWithArg,
             arguments = listOf(
-                navArgument(DestinasiUpdate.KODE){
+                navArgument(DestinasiUpdateMk.KODE){
                     type = NavType.StringType
                 }
             )
