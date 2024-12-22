@@ -9,7 +9,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.pertemuan9_roomdatabase.ui.view.mahasiswa.UpdateMkView
-import com.example.ucproomdatabase_0163.ui.view.matakuliah.DestinasiInsert
+import com.example.ucproomdatabase_0163.ui.view.matakuliah.DestinasiInsertMk
 import com.example.ucproomdatabase_0163.ui.view.matakuliah.DetailMkView
 import com.example.ucproomdatabase_0163.ui.view.matakuliah.HomeMkView
 import com.example.ucproomdatabase_0163.ui.view.matakuliah.InsertMkView
@@ -34,14 +34,14 @@ fun PengelolaHalamanMk(
                     )
                 },
                 onAddMk = {
-                    navController.navigate(DestinasiInsert.route)
+                    navController.navigate(DestinasiInsertMk.route)
                 },
                 modifier = modifier
             )
         }
 
         composable(
-            route = DestinasiInsert.route
+            route = DestinasiInsertMk.route
         ) {
             InsertMkView(
                 onBack = {
