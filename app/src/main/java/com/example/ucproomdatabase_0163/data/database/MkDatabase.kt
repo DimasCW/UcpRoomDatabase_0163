@@ -7,12 +7,12 @@ import androidx.room.RoomDatabase
 import com.example.ucproomdatabase_0163.data.dao.dosenDao
 import com.example.ucproomdatabase_0163.data.dao.MatakuliahDao
 import com.example.ucproomdatabase_0163.data.entity.Dosen
+import com.example.ucproomdatabase_0163.data.entity.Matakuliah
 
-@Database(entities = [Dosen::class], version = 1, exportSchema = false)
+@Database(entities = [Matakuliah::class], version = 1, exportSchema = false)
 abstract class MkDatabase : RoomDatabase() {
 
     //mendefinisikan fungsi untuk mengakses data mahasiswa
-    abstract fun dosenDao() : dosenDao //ini berasal dari file dosenDao
     abstract fun matakuliahDao() : MatakuliahDao //ini berasal dari file matakuliahDao
 
     companion object{
