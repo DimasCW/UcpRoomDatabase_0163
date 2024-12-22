@@ -37,6 +37,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.example.ucproomdatabase_0163.data.entity.Matakuliah
 import com.example.ucproomdatabase_0163.ui.costumwidget.CstTopAppBar
 import com.example.ucproomdatabase_0163.ui.viewModel.matakuliah.HomeMkViewModel
@@ -48,6 +49,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun HomeMkView(
     viewModel: HomeMkViewModel = viewModel(factory = PenyediaViewModel.Factory),
+    navController: NavController,
     onAddMk: () -> Unit = { },
     onDetailClick: (String) -> Unit = { },
     modifier: Modifier = Modifier
