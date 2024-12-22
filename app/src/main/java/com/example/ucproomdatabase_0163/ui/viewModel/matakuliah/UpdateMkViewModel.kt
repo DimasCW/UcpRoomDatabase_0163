@@ -2,7 +2,7 @@ package com.example.ucproomdatabase_0163.ui.viewModel.matakuliah
 
 import com.example.ucproomdatabase_0163.data.entity.Matakuliah
 import com.example.ucproomdatabase_0163.repository.RepositoryMk
-import com.example.ucproomdatabase_0163.ui.navigation.DestinasiUpdate
+import com.example.ucproomdatabase_0163.ui.navigation.DestinasiUpdateMk
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -20,7 +20,7 @@ class UpdateMkViewModel(
     var updateUIState by mutableStateOf(MkUiState())
         private set
 
-    private val _kode: String = checkNotNull(savedStateHandle[DestinasiUpdate.KODE])
+    private val _kode: String = checkNotNull(savedStateHandle[DestinasiUpdateMk.KODE])
 
     init {
         viewModelScope.launch {
