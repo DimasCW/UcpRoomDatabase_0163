@@ -9,7 +9,7 @@ import com.example.ucproomdatabase_0163.MkApp
 object PenyediaViewModel {
     val Factory = viewModelFactory {
         initializer {
-            MataKuliahViewModel(
+            MatakuliahViewModel(
                 MkApp().containerApp.repositoryMk
             )
         }

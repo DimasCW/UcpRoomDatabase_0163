@@ -34,12 +34,12 @@ data class FormErrorState(
 
 // data class variabel yang menyimpan data input form
 data class MatakuliahEvent(
-    val kode: String? = null,
-    val nama: String? = null,
-    val sks: String? = null,
-    val semester: String? = null,
-    val jenis: String? = null,
-    val dosenPengampu: String? = null
+    val kode: String = "",
+    val nama: String = "",
+    val sks: String = "",
+    val semester: String = "",
+    val jenis: String = "",
+    val dosenPengampu: String = ""
 )
 
 // menyimpan input form ke dalam activity
