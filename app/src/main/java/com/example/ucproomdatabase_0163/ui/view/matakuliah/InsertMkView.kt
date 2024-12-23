@@ -24,6 +24,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -32,17 +33,20 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.ucproomdatabase_0163.data.DosenDD
 import com.example.ucproomdatabase_0163.data.entity.Dosen
 import com.example.ucproomdatabase_0163.ui.costumwidget.CstTopAppBar
+import com.example.ucproomdatabase_0163.ui.costumwidget.FontBevietnampro
 import com.example.ucproomdatabase_0163.ui.navigation.AlamatNavigasi
 import com.example.ucproomdatabase_0163.ui.viewModel.matakuliah.FormErrorState
 import com.example.ucproomdatabase_0163.ui.viewModel.matakuliah.MatakuliahEvent
 import com.example.ucproomdatabase_0163.ui.viewModel.matakuliah.MatakuliahViewModel
 import com.example.ucproomdatabase_0163.ui.viewModel.matakuliah.MkUiState
 import com.example.ucproomdatabase_0163.ui.viewModel.matakuliah.PenyediaViewModel
+import kotlinx.coroutines.flow.map
 
 import kotlinx.coroutines.launch
 
@@ -104,7 +108,6 @@ fun InsertMkView(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(padding)
                 .padding(16.dp)
         ) {
 
@@ -140,38 +143,48 @@ fun FormMatakuliah(
     dosenList: List<Dosen> = emptyList()
 ){
     var chosenDropdown by remember { mutableStateOf("") }
-    val jenis = listOf("Wajib", "Peminatan")
-    val semester = listOf("A","B","C","D","E")
+    val jenis = listOf("Laki-laki", "Perempuan")
+    val semester = listOf("Ganjil", "Genap")
+    val sks = listOf("1", "2","3")
     val expanded = remember { mutableStateOf(false) }
     val selectedDosen = remember { mutableStateOf(matakuliahEvent.dosenPengampu) }
 
     Column (
         modifier = modifier.fillMaxWidth()
     ){
+        Text(
+            text = "Nama Matakuliah",
+            fontWeight = FontWeight.SemiBold,
+            fontFamily = FontBevietnampro
+        )
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
             value = matakuliahEvent.nama,
             onValueChange = {
                 onValueChange(matakuliahEvent.copy(nama = it))
             },
-            label = { Text("Nama") },
+            label = { Text("Masukkan Nama Matakuliah") },
             isError = errorState.nama != null,
-            placeholder = { Text("Masukkan nama") },
+            placeholder = { Text("Aplikasi Pemrograman Web") },
         )
         Text(
             text = errorState.nama ?: "",
             color = Color.Red
         )
-
+        Text(
+            text = "Kode Matkuliah",
+            fontWeight = FontWeight.SemiBold,
+            fontFamily = FontBevietnampro
+        )
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
             value = matakuliahEvent.kode,
             onValueChange = {
                 onValueChange(matakuliahEvent.copy(kode = it))
             },
-            label = { Text("KODE") },
+            label = { Text("Masukkan Kode Matakuliah") },
             isError = errorState.kode != null,
-            placeholder = { Text("Masukkan KODE") },
+            placeholder = { Text("MK001") },
 
         )
         Text(
@@ -179,8 +192,11 @@ fun FormMatakuliah(
             color = Color.Red
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
-        Text(text = "Jenis Kelamin")
+        Text(
+            text = "Jenis Kelamin",
+            fontWeight = FontWeight.SemiBold,
+            fontFamily = FontBevietnampro
+            )
         Row (
             modifier = Modifier.fillMaxWidth()
         ){
@@ -199,28 +215,47 @@ fun FormMatakuliah(
                 }
             }
         }
-        OutlinedTextField(
-            modifier = Modifier.fillMaxWidth(),
-            value = matakuliahEvent.sks,
-            onValueChange = {
-                onValueChange(matakuliahEvent.copy(sks = it))
-            },
-            label = { Text("sks") },
-            isError = errorState.sks != null,
-            placeholder = { Text("Masukkan sks") },
+        Text(
+            text = errorState.jenis ?: "",
+            color = Color.Red
         )
+        Text(
+            text = "Jumlah Sks",
+            fontWeight = FontWeight.SemiBold,
+            fontFamily = FontBevietnampro
+            )
+        Row (
+            modifier = Modifier.fillMaxWidth(),
+        ){
+            sks.forEach { sks ->
+                Row (
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Start
+                ){
+                    RadioButton(
+                        selected = matakuliahEvent.sks == sks,
+                        onClick = {
+                            onValueChange(matakuliahEvent.copy(sks = sks))
+                        },
+                    )
+                    Text(text = sks,)
+                }
+            }
+        }
         Text(
             text = errorState.sks ?: "",
             color = Color.Red
         )
-
-        Spacer(modifier = Modifier.height(16.dp))
-        Text(text = "semester")
+        Text(
+            text = "semester",
+            fontWeight = FontWeight.SemiBold,
+            fontFamily = FontBevietnampro
+            )
         Row {
             semester.forEach { semester ->
                 Row (
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Start
+                    horizontalArrangement = Arrangement.Start,
                 ){
                     RadioButton(
                         selected = matakuliahEvent.semester == semester,
@@ -236,11 +271,10 @@ fun FormMatakuliah(
             text = errorState.semester ?: "",
             color = Color.Red
         )
-
-        Spacer(modifier = Modifier.padding(8.dp))
+        val dosenNames = DosenDD.option.collectAsState(initial = emptyList()).value.map { it.nama }
         DynamicSelectTextField(
             selectedValue = chosenDropdown,
-            options = DosenDD.option.map { it.nama },
+            options = dosenNames,
             label = "Dosen Pengampu",
             onValueChangedEvent = {
                 chosenDropdown = it
@@ -254,17 +288,6 @@ fun FormMatakuliah(
             color = Color.Red
         )
 
-//        OutlinedTextField(
-//            modifier = Modifier.fillMaxWidth(),
-//            value = matakuliahEvent.dosenPengampu,
-//            onValueChange = {
-//                onValueChange(matakuliahEvent.copy(dosenPengampu = it))
-//            },
-//            label = { Text("Angkatan") },
-//            isError = errorState.dosenPengampu != null,
-//            placeholder = { Text("Masukkan Angkatan") },
-//        )
-//
     }
 }
 

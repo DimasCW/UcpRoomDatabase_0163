@@ -29,7 +29,7 @@ fun BerandaView(
     onDosen: () -> Unit
 ) {
     Column(
-        modifier = Modifier.fillMaxSize().padding(16.dp)
+        modifier = Modifier.fillMaxSize().padding(20.dp)
     ) {
         Text(
             text = "Beranda",
@@ -100,7 +100,7 @@ fun BerandaView(
         ) {
             // Set background image
             Image(
-                painter = painterResource(id = R.drawable.dosen), // Ganti dengan ID gambar yang sesuai
+                painter = painterResource(id = R.drawable.dosen),
                 contentDescription = "Background Image",
                 modifier = Modifier.matchParentSize(), // Membuat gambar memenuhi seluruh Box
                 contentScale = ContentScale.Crop // Mengatur gambar agar memenuhi box
