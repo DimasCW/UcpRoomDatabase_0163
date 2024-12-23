@@ -3,7 +3,7 @@ package com.example.ucproomdatabase_0163.ui.navigation
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.example.ucproomdatabase_0163.ui.view.BerandaView
+
 import com.example.ucproomdatabase_0163.ui.view.matakuliah.HomeMkView
 
 interface AlamatNavigasi {
@@ -26,3 +26,5 @@ object DestinasiUpdate : AlamatNavigasi {
     const val KODE = "kode"
     val routesWithArg = "$route/{$KODE}"
 }
+
+

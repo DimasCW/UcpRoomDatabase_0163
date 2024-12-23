@@ -52,7 +52,7 @@ fun DetailMkView(
     Scaffold(
         topBar = {
             CstTopAppBar(
-                judul = "Detail Mahasiswa",
+                judul = "Detail Matakuliah",
                 showBackButton = true,
                 onBack = onBack,
                 modifier = modifier
@@ -68,7 +68,7 @@ fun DetailMkView(
             ) {
                 Icon(
                     imageVector = Icons.Default.Edit,
-                    contentDescription = "Edit Mahasiswa"
+                    contentDescription = "Edit Matakuliah"
                 )
             }
         }

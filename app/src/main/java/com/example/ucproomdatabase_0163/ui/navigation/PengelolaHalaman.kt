@@ -1,5 +1,6 @@
 package com.example.ucproomdatabase_0163.ui.navigation
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -9,11 +10,18 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.pertemuan9_roomdatabase.ui.view.mahasiswa.UpdateMkView
+import com.example.ucproomdatabase_0163.ui.view.BerandaView
 import com.example.ucproomdatabase_0163.ui.view.matakuliah.DestinasiInsert
 import com.example.ucproomdatabase_0163.ui.view.matakuliah.DetailMkView
 import com.example.ucproomdatabase_0163.ui.view.matakuliah.HomeMkView
 import com.example.ucproomdatabase_0163.ui.view.matakuliah.InsertMkView
 
+
+enum class Halaman{
+    Splash,
+    MataKuliah,
+    Dosen
+}
 
 @Composable
 fun PengelolaHalaman(
@@ -21,8 +29,26 @@ fun PengelolaHalaman(
     modifier: Modifier = Modifier
 ){
     NavHost(
-        navController = navController, startDestination = DestinasiHome.route
+        navController = navController,
+        startDestination = Halaman.Splash.name,
+        modifier = Modifier.padding()
     ) {
+        composable(
+            route = Halaman.Splash.name
+        ){
+            BerandaView(
+                onMatakuliah = {
+                    navController.navigate(Halaman.MataKuliah.name)
+                }
+            )
+        }
+
+        composable(route = Halaman.MataKuliah.name){
+            HomeMkView(
+
+            )
+        }
+
         composable(
             route = DestinasiHome.route
         ){

@@ -49,10 +49,9 @@ import kotlinx.coroutines.launch
 @Composable
 fun HomeMkView(
     viewModel: HomeMkViewModel = viewModel(factory = PenyediaViewModel.Factory),
-    navController: NavController,
     onAddMk: () -> Unit = { },
     onDetailClick: (String) -> Unit = { },
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Scaffold (
         topBar = {
