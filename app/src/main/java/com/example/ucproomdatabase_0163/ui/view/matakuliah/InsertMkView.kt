@@ -1,6 +1,7 @@
 package com.example.ucproomdatabase_0163.ui.view.matakuliah
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -8,22 +9,33 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.Button
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.ucproomdatabase_0163.data.DosenDD
+import com.example.ucproomdatabase_0163.data.entity.Dosen
 import com.example.ucproomdatabase_0163.ui.costumwidget.CstTopAppBar
 import com.example.ucproomdatabase_0163.ui.navigation.AlamatNavigasi
 import com.example.ucproomdatabase_0163.ui.viewModel.matakuliah.FormErrorState
@@ -124,10 +136,14 @@ fun FormMatakuliah(
     matakuliahEvent: MatakuliahEvent = MatakuliahEvent(),
     onValueChange: (MatakuliahEvent) -> Unit,
     errorState: FormErrorState = FormErrorState(),
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    dosenList: List<Dosen> = emptyList()
 ){
+    var chosenDropdown by remember { mutableStateOf("") }
     val jenis = listOf("Wajib", "Peminatan")
     val semester = listOf("A","B","C","D","E")
+    val expanded = remember { mutableStateOf(false) }
+    val selectedDosen = remember { mutableStateOf(matakuliahEvent.dosenPengampu) }
 
     Column (
         modifier = modifier.fillMaxWidth()
@@ -220,19 +236,35 @@ fun FormMatakuliah(
             text = errorState.semester ?: "",
             color = Color.Red
         )
-        OutlinedTextField(
-            modifier = Modifier.fillMaxWidth(),
-            value = matakuliahEvent.dosenPengampu,
-            onValueChange = {
+
+        Spacer(modifier = Modifier.padding(8.dp))
+        DynamicSelectTextField(
+            selectedValue = chosenDropdown,
+            options = DosenDD.option.map { it.nama },
+            label = "Dosen Pengampu",
+            onValueChangedEvent = {
+                chosenDropdown = it
                 onValueChange(matakuliahEvent.copy(dosenPengampu = it))
             },
-            label = { Text("Angkatan") },
-            isError = errorState.dosenPengampu != null,
-            placeholder = { Text("Masukkan Angkatan") },
+
+
         )
         Text(
             text = errorState.dosenPengampu ?: "",
             color = Color.Red
         )
+
+//        OutlinedTextField(
+//            modifier = Modifier.fillMaxWidth(),
+//            value = matakuliahEvent.dosenPengampu,
+//            onValueChange = {
+//                onValueChange(matakuliahEvent.copy(dosenPengampu = it))
+//            },
+//            label = { Text("Angkatan") },
+//            isError = errorState.dosenPengampu != null,
+//            placeholder = { Text("Masukkan Angkatan") },
+//        )
+//
     }
 }
+

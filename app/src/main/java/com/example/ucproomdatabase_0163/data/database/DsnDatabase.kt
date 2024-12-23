@@ -25,6 +25,7 @@ abstract class DsnDatabase : RoomDatabase() {
                     "DsnDatabase"
                 )
                     .build().also { Instance = it }
+
             })
         }
     }

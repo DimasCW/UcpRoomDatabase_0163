@@ -25,7 +25,8 @@ import com.example.ucproomdatabase_0163.R
 
 @Composable
 fun BerandaView(
-    onMatakuliah: () -> Unit
+    onMatakuliah: () -> Unit,
+    onDosen: () -> Unit
 ) {
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp)
@@ -112,7 +113,7 @@ fun BerandaView(
                     .padding(end = 62.dp) // Menurunkan padding agar tidak terlalu kekanan
             ) {
                 Button(
-                    onClick = { /* Tindakan untuk button kedua */ },
+                    onClick = { /* Tindakan untuk button kedua */onDosen() },
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Color(0xFFFFC441) // Mengganti warna button menjadi #ffc441
                     ),

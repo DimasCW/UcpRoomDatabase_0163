@@ -1,78 +1,76 @@
-package com.example.ucproomdatabase_0163.ui.viewModel.matakuliah
+package com.example.ucproomdatabase_0163.ui.viewModel.dosen
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.ucproomdatabase_0163.data.entity.Matakuliah
-import com.example.ucproomdatabase_0163.repository.RepositoryMk
+import com.example.ucproomdatabase_0163.data.database.DsnDatabase
+import com.example.ucproomdatabase_0163.data.entity.Dosen
+import com.example.ucproomdatabase_0163.repository.RepositoryDsn
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 // Event adalah sebuah aksi (sesuatu yang dilakukan)
 // State adalah hasil dari event (aksi)
 
-data class MkUiState(
-    val matakuliahEvent: MatakuliahEvent = MatakuliahEvent(),
+data class DsnUiState(
+    val dosenEvent: DosenEvent = DosenEvent(),
     val isEntryValid: FormErrorState = FormErrorState(),
     val snackBarMessage: String? = null,
 )
 
 data class FormErrorState(
-    val kode: String? = null,
+    val nidn: String? = null,
     val nama: String? = null,
-    val sks: String? = null,
-    val semester: String? = null,
-    val jenis: String? = null,
-    val dosenPengampu: String? = null,
+    val jenisKelamin: String? = null
 ){
     fun isValid(): Boolean{
-        return kode == null && sks == null &&
-                semester == null && jenis == null && dosenPengampu == null
+        return nidn == null &&
+                jenisKelamin == null
     }
 }
 
 // data class variabel yang menyimpan data input form
-data class MatakuliahEvent(
-    val kode: String = "",
+data class DosenEvent(
+    val nidn: String = "",
     val nama: String = "",
-    val sks: String = "",
-    val semester: String = "",
-    val jenis: String = "",
-    val dosenPengampu: String = ""
+    val jenisKelamin: String = "",
 )
 
 // menyimpan input form ke dalam activity
-fun MatakuliahEvent.toMatakuliahEntity(): Matakuliah = Matakuliah(
-    kode = kode,
+fun DosenEvent.toDosenEntity(): Dosen = Dosen(
+    nidn = nidn,
     nama = nama,
-    sks = sks,
-    semester = semester,
-    jenis = jenis,
-    dosenPengampu = dosenPengampu
+    jenisKelamin = jenisKelamin,
 )
 
-class MatakuliahViewModel (private val  repositoryMk: RepositoryMk): ViewModel(){
-    var uiState by mutableStateOf(MkUiState())
-
-
+class DosenViewModel (private val  repositoryDsn: RepositoryDsn): ViewModel(){
+    var uiState by mutableStateOf(DsnUiState())
+    val dosenList: StateFlow<List<Dosen>> = repositoryDsn.getAllDosen().stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5000),
+        emptyList()
+    )
     // Memperbarui state berdasarkan input pengguna
-    fun updateState(matakuliahEvent: MatakuliahEvent){
+    fun updateState(dosenEvent: DosenEvent){
         uiState = uiState.copy(
-            matakuliahEvent = matakuliahEvent,
+            dosenEvent = dosenEvent,
         )
     }
 
     // Validasi data input pengguna
     private fun validateFields(): Boolean {
-        val event = uiState.matakuliahEvent
+        val event = uiState.dosenEvent
         val errorState = FormErrorState(
-            kode = if (event.kode.isNotEmpty()) null else "kode tidak boleh kosong",
+            nidn = if (event.nidn.isNotEmpty()) null else "nidn tidak boleh kosong",
             nama = if (event.nama.isNotEmpty()) null else "Nama tidak boleh kosong",
-            sks = if (event.sks.isNotEmpty()) null else "Jenis Kelamin tidak boleh kosong",
-            semester = if (event.semester.isNotEmpty()) null else "Alamat tidak boleh kosong",
-            jenis = if (event.jenis.isNotEmpty()) null else "Kelas tidak boleh kosong",
-            dosenPengampu = if (event.dosenPengampu.isNotEmpty()) null else "Angkatan tidak boleh kosong"
+            jenisKelamin = if (event.jenisKelamin.isNotEmpty()) null else "Jenis Kelamin tidak boleh kosong"
         )
 
         uiState = uiState.copy(isEntryValid = errorState)
@@ -81,14 +79,14 @@ class MatakuliahViewModel (private val  repositoryMk: RepositoryMk): ViewModel()
 
     // Menyimpan data ke repository
     fun saveData(){
-        val currentEvent = uiState.matakuliahEvent
+        val currentEvent = uiState.dosenEvent
         if (validateFields()) {
             viewModelScope.launch {
                 try {
-                    repositoryMk.insertMatakuliah(currentEvent.toMatakuliahEntity())
+                    repositoryDsn.insertDosen(currentEvent.toDosenEntity())
                     uiState = uiState.copy(
                         snackBarMessage = "Data berhasil disimpan",
-                        matakuliahEvent = MatakuliahEvent(), // Reset input form
+                        dosenEvent = DosenEvent(), // Reset input form
                         isEntryValid = FormErrorState() // Reset error state
                     )
                 } catch (e: Exception){

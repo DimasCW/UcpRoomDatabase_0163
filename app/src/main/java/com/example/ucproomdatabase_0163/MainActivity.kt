@@ -13,9 +13,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
+import com.example.ucproomdatabase_0163.data.DosenDD
 import com.example.ucproomdatabase_0163.ui.navigation.PengelolaHalaman
 import com.example.ucproomdatabase_0163.ui.theme.UcpRoomDatabase_0163Theme
 import com.example.ucproomdatabase_0163.ui.view.BerandaView
+import com.example.ucproomdatabase_0163.ui.view.Dsn.HomeDsnView
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,7 +25,6 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             UcpRoomDatabase_0163Theme {
-                val navController = rememberNavController()
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     PengelolaHalaman(
                         modifier = Modifier.padding(innerPadding)
@@ -31,6 +32,7 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+        DosenDD.loadData(this)
     }
 }
 
