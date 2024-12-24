@@ -210,6 +210,10 @@ fun FormDosen(
                     Text(text = jk,)
                 }
             }
+            Text(
+                text = errorState.nidn ?: "",
+                color = Color.Red
+            )
         }
 
     }
