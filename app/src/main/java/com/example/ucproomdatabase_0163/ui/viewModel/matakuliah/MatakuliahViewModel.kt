@@ -76,7 +76,8 @@ class MatakuliahViewModel (private val  repositoryMk: RepositoryMk): ViewModel()
         )
 
         uiState = uiState.copy(isEntryValid = errorState)
-        return errorState.isValid()
+        //return // Return true jika tidak ada error
+        return errorState.nama == null && errorState.kode == null && errorState.jenis == null && errorState.sks == null && errorState.semester == null && errorState.dosenPengampu == null
     }
 
     // Menyimpan data ke repository

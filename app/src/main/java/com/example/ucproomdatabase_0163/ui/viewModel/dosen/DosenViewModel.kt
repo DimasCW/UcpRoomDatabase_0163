@@ -71,7 +71,7 @@ class DosenViewModel (private val  repositoryDsn: RepositoryDsn): ViewModel(){
         )
 
         uiState = uiState.copy(isEntryValid = errorState)
-        return errorState.isValid()
+        return errorState.nama == null && errorState.nidn == null && errorState.jenisKelamin == null
     }
 
     // Menyimpan data ke repository

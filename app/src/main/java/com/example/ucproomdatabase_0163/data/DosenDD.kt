@@ -14,16 +14,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 object DosenDD {
-//    var option: List<Dosen> = listOf()
-//    fun loadData(context: Context) {
-//        val db = DsnDatabase.getDatabase(context)
-//        val dosenDao = db.dosenDao()
-//
-//        // Gunakan coroutine untuk mendapatkan data
-//        runBlocking {
-//            option = dosenDao.getAllDosen().first() // Mengambil data pertama dari Flow
-//        }
-//    }
 // StateFlow untuk data dosen
 private val _option = MutableStateFlow<List<Dosen>>(emptyList())
     val option: StateFlow<List<Dosen>> = _option

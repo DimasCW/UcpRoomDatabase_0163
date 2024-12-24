@@ -208,7 +208,7 @@ fun FormMatakuliah(
         )
 
         Text(
-            text = "Jenis Kelamin",
+            text = "Jenis Matakuliah",
             fontWeight = FontWeight.SemiBold,
             fontFamily = FontBevietnampro
             )
