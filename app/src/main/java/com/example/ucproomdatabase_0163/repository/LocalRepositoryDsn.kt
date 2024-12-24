@@ -19,4 +19,8 @@ class LocalRepositoryDsn (
     override fun getDosen(nidn: String): Flow<Dosen> {
         return dosenDao.getDosen(nidn)
     }
+
+    override suspend fun deleteDosen(dosen: Dosen) {
+        dosenDao.deleteDosen(dosen)
+    }
 }

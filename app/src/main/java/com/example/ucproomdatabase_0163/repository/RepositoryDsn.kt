@@ -10,4 +10,6 @@ interface RepositoryDsn {
     fun getAllDosen(): Flow<List<Dosen>>
 
     fun getDosen(nidn :String) : Flow<Dosen>
+
+    suspend fun deleteDosen(dosen: Dosen)
 }

@@ -21,6 +21,10 @@ interface DosenDao {
     //get dosen
     @Query("SELECT * FROM dosen WHERE nidn = :nidn")
     fun getDosen(nidn: String): Flow<Dosen>
+
+
+    @Delete
+    suspend fun deleteDosen(dosen: Dosen)
 }
 
 //Semua eksekusi diatas akan dikirim ke package repository

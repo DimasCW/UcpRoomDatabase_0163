@@ -1,9 +1,12 @@
 package com.example.ucproomdatabase_0163.ui.viewModel.dosen
 
+import androidx.lifecycle.SavedStateHandle
 import com.example.ucproomdatabase_0163.repository.RepositoryDsn
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.ucproomdatabase_0163.data.entity.Dosen
+import com.example.ucproomdatabase_0163.ui.navigation.DestinasiDetail
+import com.example.ucproomdatabase_0163.ui.navigation.DestinasiDetailDsn
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -17,6 +20,7 @@ import kotlinx.coroutines.flow.stateIn
 class HomeDsnViewModel(
     private val repositoryDsn: RepositoryDsn
 ) : ViewModel(){
+
     val homeUiState : StateFlow<HomeUiState> = repositoryDsn.getAllDosen()
         .filterNotNull()
         .map {

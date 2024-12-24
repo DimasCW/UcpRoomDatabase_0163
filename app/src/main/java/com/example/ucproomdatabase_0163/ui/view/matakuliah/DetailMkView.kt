@@ -10,6 +10,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -29,12 +30,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.ucproomdatabase_0163.data.entity.Matakuliah
 import com.example.ucproomdatabase_0163.ui.costumwidget.CstTopAppBar
+import com.example.ucproomdatabase_0163.ui.view.dosen.FontBevietnampro
 import com.example.ucproomdatabase_0163.ui.viewModel.matakuliah.DetailMkViewModel
 import com.example.ucproomdatabase_0163.ui.viewModel.matakuliah.DetailUiState
 import com.example.ucproomdatabase_0163.ui.viewModel.matakuliah.PenyediaViewModel
@@ -64,7 +67,8 @@ fun DetailMkView(
                     onEditClick(viewModel.detailUiState.value.detailUiEvent.kode)
                 },
                 shape = MaterialTheme.shapes.medium,
-                modifier = Modifier.padding(16.dp)
+                modifier = Modifier.padding(16.dp),
+                containerColor = Color(0xFFFFC441)
             ) {
                 Icon(
                     imageVector = Icons.Default.Edit,
@@ -118,9 +122,19 @@ fun BodyDetailMk(
                     onClick = {
                         deleteConfirmationRequired = true
                     },
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text(text = "Delete")
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = ButtonDefaults.buttonColors(
+                        contentColor= Color.White,
+                        containerColor = Color(0xFFFFC441)
+                    ),
+
+                    ) {
+                    Text(text = "Delete",style = TextStyle(
+                        fontFamily = FontBevietnampro,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 18.sp
+                    )
+                    )
                 }
                 if (deleteConfirmationRequired){
                     DeleteConfirmationDialog(
@@ -166,17 +180,17 @@ fun ItemDetailMk(
         Column(
             modifier = Modifier.padding(16.dp)
         ) {
-            ComponentDetailMk(judul = "kode", isinya = matakuliah.kode)
+            ComponentDetailMk(judul = "Kode MK", isinya = matakuliah.kode)
             Spacer(modifier = Modifier.padding(4.dp))
             ComponentDetailMk(judul = "Nama", isinya = matakuliah.nama)
             Spacer(modifier = Modifier.padding(4.dp))
-            ComponentDetailMk(judul = "sks", isinya = matakuliah.sks)
+            ComponentDetailMk(judul = "Jumlah Sks", isinya = matakuliah.sks)
             Spacer(modifier = Modifier.padding(4.dp))
-            ComponentDetailMk(judul = "semester", isinya = matakuliah.semester)
+            ComponentDetailMk(judul = "Semester", isinya = matakuliah.semester)
             Spacer(modifier = Modifier.padding(4.dp))
-            ComponentDetailMk(judul = "jenis", isinya = matakuliah.jenis)
+            ComponentDetailMk(judul = "Jenis", isinya = matakuliah.jenis)
             Spacer(modifier = Modifier.padding(4.dp))
-            ComponentDetailMk(judul = "dosenPengampu", isinya = matakuliah.dosenPengampu)
+            ComponentDetailMk(judul = "Dosen Pengampu", isinya = matakuliah.dosenPengampu)
             Spacer(modifier = Modifier.padding(4.dp))
         }
     }
@@ -197,11 +211,22 @@ fun ComponentDetailMk (
             text = "$judul : ",
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
-            color = Color.Gray
+            color = Color.Black,
+            style = TextStyle(
+                fontFamily = com.example.ucproomdatabase_0163.ui.view.dosen.FontBevietnampro,// Set the custom font family
+                fontWeight = FontWeight.Bold,
+                fontSize = 18.sp
+            )
         )
         Text(
             text = isinya, fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
+            color = Color.Gray,
+            style = TextStyle(
+                fontFamily = com.example.ucproomdatabase_0163.ui.view.dosen.FontBevietnampro,// Set the custom font family
+                fontWeight = FontWeight.Bold,
+                fontSize = 18.sp
+            )
         )
     }
 }

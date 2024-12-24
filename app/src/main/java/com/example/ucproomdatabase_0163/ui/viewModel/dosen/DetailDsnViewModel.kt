@@ -10,6 +10,7 @@ import com.example.ucproomdatabase_0163.data.entity.Matakuliah
 import com.example.ucproomdatabase_0163.repository.RepositoryDsn
 import com.example.ucproomdatabase_0163.repository.RepositoryMk
 import com.example.ucproomdatabase_0163.ui.navigation.DestinasiDetail
+import com.example.ucproomdatabase_0163.ui.navigation.DestinasiDetailDsn
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -24,7 +25,7 @@ class DetailDsnViewModel(
     savedStateHandle: SavedStateHandle,
     private val repositoryDsn: RepositoryDsn,
 ): ViewModel(){
-    private val _nidn: String = checkNotNull(savedStateHandle[DestinasiDetail.KODE])
+    private val _nidn: String = checkNotNull(savedStateHandle[DestinasiDetailDsn.NIDN])
 
     val detailUiState: StateFlow<DetailUiState> = repositoryDsn.getDosen(_nidn)
         .filterNotNull()
@@ -54,6 +55,13 @@ class DetailDsnViewModel(
                 isLoading = true
             ),
         )
+    fun deleteDsn(){
+        detailUiState.value.detailUiEvent.toDosenEntity().let{
+            viewModelScope.launch {
+                repositoryDsn.deleteDosen(it)
+            }
+        }
+    }
 }
 
 data class DetailUiState(

@@ -131,7 +131,13 @@ fun PengelolaHalaman(
             val nidn = it.arguments?.getString(DestinasiDetailDsn.NIDN)
             nidn?.let { nidn ->
                 DetailDsnView(
+                    onBack = {
+                        navController.popBackStack()
+                    },
                     modifier = modifier,
+                    onDeleteClick = {
+                        navController.popBackStack()
+                    }
                 )
             }
         }

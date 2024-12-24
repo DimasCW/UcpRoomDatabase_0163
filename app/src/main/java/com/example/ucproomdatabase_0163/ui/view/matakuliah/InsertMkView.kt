@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.Icon
@@ -33,8 +34,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.ucproomdatabase_0163.data.DosenDD
 import com.example.ucproomdatabase_0163.data.entity.Dosen
@@ -71,8 +74,20 @@ fun InsertBodyMk(
         Button(
             onClick = onClick,
             modifier = Modifier.fillMaxWidth(),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color(0xFFFFC441),
+                contentColor = Color.White
+
+            )
         ) {
-            Text("Simpan")
+            Text(
+                text = "Simpan",
+                style = TextStyle(
+                    fontFamily = com.example.ucproomdatabase_0163.ui.view.dosen.FontBevietnampro,// Set the custom font family
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 18.sp
+                )
+            )
         }
     }
 }
@@ -143,7 +158,7 @@ fun FormMatakuliah(
     dosenList: List<Dosen> = emptyList()
 ){
     var chosenDropdown by remember { mutableStateOf("") }
-    val jenis = listOf("Laki-laki", "Perempuan")
+    val jenis = listOf("Wajib", "Peminatan")
     val semester = listOf("Ganjil", "Genap")
     val sks = listOf("1", "2","3")
     val expanded = remember { mutableStateOf(false) }

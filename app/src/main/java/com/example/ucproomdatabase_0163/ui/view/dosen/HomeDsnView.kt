@@ -1,6 +1,7 @@
 package com.example.ucproomdatabase_0163.ui.view.Dsn
 
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -15,7 +16,10 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
@@ -24,23 +28,36 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.ucproomdatabase_0163.R
 import com.example.ucproomdatabase_0163.data.entity.Dosen
 import com.example.ucproomdatabase_0163.ui.costumwidget.CstTopAppBar
+import com.example.ucproomdatabase_0163.ui.costumwidget.FontBevietnampro
+import com.example.ucproomdatabase_0163.ui.view.matakuliah.ItemDetailMk
 import com.example.ucproomdatabase_0163.ui.viewModel.dosen.HomeDsnViewModel
 import com.example.ucproomdatabase_0163.ui.viewModel.dosen.HomeUiState
 import com.example.ucproomdatabase_0163.ui.viewModel.dosen.PenyediaDsnViewModel
+import com.example.ucproomdatabase_0163.ui.viewModel.matakuliah.DetailUiState
+import com.example.ucproomdatabase_0163.ui.viewModel.matakuliah.toMatakuliahEntity
 
 
 import kotlinx.coroutines.launch
@@ -64,7 +81,8 @@ fun HomeDsnView(
             FloatingActionButton(
                 onClick = onAddDsn,
                 shape = MaterialTheme.shapes.medium,
-                modifier = Modifier.padding(16.dp)
+                modifier = Modifier.padding(16.dp),
+                containerColor = Color(0xFFFFC441)
             ) {
                 Icon(
                     imageVector = Icons.Default.Add,
@@ -161,6 +179,7 @@ fun listDosen(
             itemContent = { dsn ->
                 CardDsn(
                     dsn = dsn,
+                    onClick = { onClick(dsn.nidn)}
                 )
             }
         )
@@ -172,51 +191,92 @@ fun listDosen(
 fun CardDsn(
     dsn: Dosen,
     modifier: Modifier = Modifier,
+    onClick: () -> Unit = {}
 ){
-    Card (
+    Card(
+        onClick = onClick,
         modifier = modifier
             .fillMaxWidth()
-            .padding(8.dp)
-    ){
-        Column (
-            modifier = Modifier.padding(8.dp)
-        ){
-            Row (
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
-            ){
-                Icon(imageVector = Icons.Filled.Person, contentDescription = "")
-                Spacer(modifier = Modifier.padding(4.dp))
-                Text(
-                    text = dsn.nama,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 20.sp
+            .padding(20.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
+    ) {
+        // Gunakan Box untuk membuat layer
+        Box {
+            // Gambar latar belakang
+            Image(
+                painter = painterResource(id = R.drawable.bgcarddsn), // Ganti dengan resource gambar Anda
+                contentDescription = "Background Image",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .matchParentSize(), // Gambar memenuhi seluruh Card
+                contentScale = ContentScale.Crop // Mengatur gambar agar memenuhi Card secara proporsional
+            )
+
+            // Konten teks di atas gambar
+            Column(
+                modifier = Modifier
+                    .padding(16.dp)
+                    .align(Alignment.CenterStart) // Mengatur posisi konten
+            ) {
+                DetailRow(
+                    label = "Nama",
+                    value = dsn.nama
                 )
-            }
-            Row (
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
-            ){
-                Icon(imageVector = Icons.Filled.DateRange, contentDescription = "")
-                Spacer(modifier = Modifier.padding(4.dp))
-                Text(
-                    text = dsn.nidn,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 16.sp
+                DetailRow(
+                    label = "Nidn",
+                    value = dsn.nidn
                 )
-            }
-            Row (
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
-            ){
-                Icon(imageVector = Icons.Filled.Home, contentDescription = "")
-                Spacer(modifier = Modifier.padding(4.dp))
-                Text(
-                    text = dsn.nama,
-                    fontWeight = FontWeight.Bold
+                DetailRow(
+                    label = "Jenis Kelamin",
+                    value = dsn.jenisKelamin
                 )
+
             }
         }
     }
 
 }
+
+@Composable
+fun DetailRow(label: String, value: String) {
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 4.dp)
+    ) {
+        Text(
+            text = label,
+            modifier = Modifier
+                .weight(2f) // Memberikan bobot agar label mengambil ruang yang cukup
+                .align(Alignment.CenterVertically),
+            fontSize = 16.sp,
+            color = Color(0xFF000000),
+            fontWeight = FontWeight.Light,
+            fontFamily = FontBevietnampro
+        )
+        Text(
+            text = ":",
+            modifier = Modifier
+                .padding(horizontal = 8.dp)
+                .align(Alignment.CenterVertically), // Memberikan jarak horizontal di sekitar tanda ":"
+            fontSize = 16.sp,
+            color = Color(0xFF000000),
+            fontWeight = FontWeight.SemiBold,
+            fontFamily = FontBevietnampro
+        )
+        Text(
+            text = value,
+            modifier = Modifier
+                .weight(2f) // Memberikan ruang lebih untuk value agar tidak terlalu ke kanan
+                .align(Alignment.CenterVertically)
+                .padding(end = 16.dp), // Memberikan jarak dari tepi kanan
+            fontWeight = FontWeight.Normal,
+            fontSize = 16.sp,
+            color = Color(0xFF000000),
+            fontFamily = FontBevietnampro
+        )
+    }
+}
+
+

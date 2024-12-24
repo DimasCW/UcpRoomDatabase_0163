@@ -1,5 +1,7 @@
 package com.example.ucproomdatabase_0163.ui.navigation
 
+import com.example.ucproomdatabase_0163.ui.navigation.DestinasiDetailDsn.NIDN
+
 interface AlamatNavigasiDsn {
     val route: String
 }

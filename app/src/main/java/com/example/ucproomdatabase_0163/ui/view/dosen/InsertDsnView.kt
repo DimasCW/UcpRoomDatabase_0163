@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
@@ -22,8 +23,14 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.ucproomdatabase_0163.R
 import com.example.ucproomdatabase_0163.ui.costumwidget.CstTopAppBar
 import com.example.ucproomdatabase_0163.ui.navigation.AlamatNavigasiDsn
 import com.example.ucproomdatabase_0163.ui.viewModel.dosen.DosenEvent
@@ -33,7 +40,9 @@ import com.example.ucproomdatabase_0163.ui.viewModel.dosen.FormErrorState
 import com.example.ucproomdatabase_0163.ui.viewModel.dosen.PenyediaDsnViewModel
 
 import kotlinx.coroutines.launch
-
+val FontBevietnampro = FontFamily(
+    Font(R.font.bevietnampro) // Ganti dengan nama file font Anda
+)
 @Composable
 fun InsertBodyDsn(
     modifier: Modifier = Modifier,
@@ -55,8 +64,19 @@ fun InsertBodyDsn(
         Button(
             onClick = onClick,
             modifier = Modifier.fillMaxWidth(),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color(0xFFFFC441), // Change the button background color
+                contentColor = Color.White // Change the text color
+            )
         ) {
-            Text("Simpan")
+            Text(
+                text = "Simpan",
+                style = TextStyle(
+                    fontFamily = FontBevietnampro,// Set the custom font family
+                    fontWeight = FontWeight.Bold, // Optional: Set the font weight
+                    fontSize = 18.sp // Set the font size
+                )
+            )
         }
     }
 }
@@ -131,13 +151,18 @@ fun FormDosen(
     Column (
         modifier = modifier.fillMaxWidth()
     ){
+        Text(
+            text = "Nama Dosen",
+            fontWeight = FontWeight.SemiBold,
+            fontFamily = com.example.ucproomdatabase_0163.ui.costumwidget.FontBevietnampro
+        )
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
             value = dosenEvent.nama,
             onValueChange = {
                 onValueChange(dosenEvent.copy(nama = it))
             },
-            label = { Text("Nama") },
+            label = { Text("Masukkan Nama") },
             isError = errorState.nama != null,
             placeholder = { Text("Masukkan nama") },
         )
@@ -145,16 +170,20 @@ fun FormDosen(
             text = errorState.nama ?: "",
             color = Color.Red
         )
-
+        Text(
+            text = "Nidn",
+            fontWeight = FontWeight.SemiBold,
+            fontFamily = com.example.ucproomdatabase_0163.ui.costumwidget.FontBevietnampro
+        )
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
             value = dosenEvent.nidn,
             onValueChange = {
                 onValueChange(dosenEvent.copy(nidn = it))
             },
-            label = { Text("KODE") },
+            label = { Text("Masukkan idn") },
             isError = errorState.nidn != null,
-            placeholder = { Text("Masukkan KODE") },
+            placeholder = { Text("Masukkan Nidn") },
 
             )
         Text(

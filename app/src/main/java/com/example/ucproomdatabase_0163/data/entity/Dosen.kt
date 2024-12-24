@@ -10,4 +10,3 @@ data class Dosen(
     val nama : String,
     val jenisKelamin : String,
 )
-

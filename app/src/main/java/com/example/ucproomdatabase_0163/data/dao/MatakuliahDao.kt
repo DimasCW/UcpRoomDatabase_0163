@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
+import com.example.ucproomdatabase_0163.data.entity.Dosen
 import com.example.ucproomdatabase_0163.data.entity.Matakuliah
 import kotlinx.coroutines.flow.Flow
 
@@ -24,6 +25,7 @@ interface MatakuliahDao {
     //delete
     @Delete
     suspend fun deleteMatakuliah(matakuliah: Matakuliah)
+
 
     //update
     @Update

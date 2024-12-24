@@ -1,6 +1,7 @@
 package com.example.ucproomdatabase_0163.repository
 
 import com.example.ucproomdatabase_0163.data.dao.MatakuliahDao
+import com.example.ucproomdatabase_0163.data.entity.Dosen
 import com.example.ucproomdatabase_0163.data.entity.Matakuliah
 import kotlinx.coroutines.flow.Flow
 
